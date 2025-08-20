@@ -99,6 +99,24 @@
         .logo img {
             transition: all 0.3s ease;
             filter: brightness(1);
+            max-width: 100%;
+            height: auto;
+        }
+        
+        .logo img[src*="error"] {
+            display: none;
+        }
+        
+        .logo::after {
+            content: "<!-- TODO: NAME -->";
+            display: none;
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #2e56a7;
+        }
+        
+        .logo img[src*="error"] + .logo::after {
+            display: inline;
         }
         
         .logo:hover img {
@@ -396,7 +414,7 @@
         <div class="container">
             <nav class="nav">
                 <a href="#" class="logo">
-                    <img src="LOGO/LOGO.jpg" alt="Logo" style="height: 40px; width: auto; transition: all 0.3s ease;">
+                    <img src="./LOGO/LOGO.jpg" alt="Logo" style="height: 40px; width: auto; transition: all 0.3s ease;">
                 </a>
                 
                 <ul class="nav-menu" id="nav-menu">
@@ -757,6 +775,17 @@
                     logo.style.opacity = '1';
                     logo.style.transform = 'translateY(0)';
                 }, 300);
+                
+                // Handle logo loading error
+                logo.onerror = function() {
+                    this.style.display = 'none';
+                    const logoText = document.createElement('span');
+                    logoText.textContent = '<!-- TODO: NAME -->';
+                    logoText.style.fontSize = '1.5rem';
+                    logoText.style.fontWeight = 'bold';
+                    logoText.style.color = '#2e56a7';
+                    this.parentNode.appendChild(logoText);
+                };
             }
         });
     </script>
